@@ -103,6 +103,9 @@ class FormTypeParser implements ParserInterface
                     if (is_string($config->getOption('type')) && isset($this->mapTypes[$config->getOption('type')])) {
                         $bestType = sprintf('array of %ss', $this->mapTypes[$config->getOption('type')]);
                     }
+                } else if ('rest_entity' == $type->getName()) {
+                    $bestType = sprintf('object(%s)|integer', $config->getOption('data_class'));
+                    break;
                 }
             }
 
