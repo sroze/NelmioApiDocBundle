@@ -205,14 +205,14 @@ class ApiDocExtractor
      * Returns an ApiDoc annotation.
      *
      * @param string $controller
-     * @param Route  $route
+     * @param Route|string  $route
      * @return ApiDoc|null
      */
     public function get($controller, $route)
     {
         if ($method = $this->getReflectionMethod($controller)) {
             if ($annotation = $this->reader->getMethodAnnotation($method, self::ANNOTATION_CLASS)) {
-                if ($route = $this->router->getRouteCollection()->get($route)) {
+                if ($route instanceof Route || $route = $this->router->getRouteCollection()->get($route)) {
                     return $this->extractData($annotation, $route, $method);
                 }
             }
